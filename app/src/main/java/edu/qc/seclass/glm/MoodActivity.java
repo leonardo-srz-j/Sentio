@@ -1,13 +1,15 @@
 package edu.qc.seclass.glm;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
 public class MoodActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mood_disorder_activity);
+        setContentView(R.layout.activity_mood);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
 }

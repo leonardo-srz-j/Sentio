@@ -93,11 +93,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 break;//when this case is handled we will leave the switch segment
 
-            case R.id.nav_log_item:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new LogFragment()).commit();
-                break;
-
             case R.id.nav_education_item:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new EducationFragment()).commit();
@@ -108,12 +103,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         new ConnectFragment()).commit();
                 break;
 
+            case R.id.nav_hotlines_item:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new HotlinesFragment()).commit();
+                break;
+
+            case R.id.nav_log_item:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new LogFragment()).commit();
+                break;
+
             case R.id.nav_evaluation_item:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new EvaluationFragment()).commit();
                 break;
         }
-
         return true;
     }
 

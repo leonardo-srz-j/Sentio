@@ -1,5 +1,6 @@
 package edu.qc.seclass.glm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,8 +8,25 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
-public class NotingFragment extends Fragment {
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Hashtable;
+
+public class NotingFragment extends Fragment implements RetrieveGetSentiment.AsyncResponse {
+
+    public NotingFragment() {
+    }
+
+    Hashtable<String, Double> comm = new Hashtable<>();
+    String str;
+    String st;
+    static int[] arr = new int[2]; //count of the feelings neg
+
+
     /**
      * Every time we create a new instance of this class we are calling
      * the onCreateView method
@@ -26,6 +44,110 @@ public class NotingFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_noting,container,false);
+        View view = inflater.inflate(R.layout.fragment_noting, container, false);
+        Button feelTodayBtn = view.findViewById(R.id.feelTodayBtn);
+        feelTodayBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Check(v.getRootView());
+
+            }
+        });
+        return view;
     }
+
+    public void uploadData(String score) {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("server/saving-data/fireblog");
+//        DatabaseReference ref = database.getReference("https://console.firebase.google.com/u/0/project/tryagain-fac73/database/data/?pli=1");
+
+
+//        System.out.println(FirebaseDatabase.getInstance() + "*********************HELLO WORLD");
+//        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+//        DatabaseReference ref = database.getReference("server/saving-data/fireblog");
+        String str = this.str;
+        GFG hashME = new GFG();
+        String hash = hashME.getSHA(str);
+        double s = Double.parseDouble(score);
+
+        DatabaseReference comments = ref.child("Comments");
+        comm.put(hash, s);
+        comments.setValue(comm);
+        countComment(s);
+        System.out.print("appleapple");
+    }
+
+    public void countComment(Double s) {
+        if (s <= .5) {
+            int a = arr[0]; // bad comments
+            a = a + 1;
+            arr[0] = a;
+        } else {
+            int b = arr[1]; //good comment
+            b = b + 1;
+            arr[1] = b;
+        }
+    }
+
+    public String getGoodORBad() {
+        if (arr[0] > arr[1]) {
+            return "Let't try to have a good day tomorrow";
+        } else return "You had a good day, let's do it again!!!";
+    }
+
+
+    public static int Evaluate(int i) {
+        return arr[i];
+    }
+
+
+    /**
+     * this is calling the happy activity (next activity 2)
+     * or if the input is negative it will call the sad activity (next activity 1)
+     *
+     * @param score
+     */
+    public void analyzer(String score) {
+       uploadData(score);
+
+        if (Double.parseDouble(score) <= .5) {
+            Intent i = new Intent(getActivity(), SadActivity.class);
+            startActivity(i);
+
+        } else {
+            Intent n = new Intent(getActivity(), HappyActivity.class);
+            startActivity(n);
+        }
+    }
+
+    @Override
+    public void processFinish(String output) {
+        final String[] score2 = {null};
+        score2[0] = output;
+        analyzer(score2[0]);
+    }
+
+    public void setStr(String a) {
+        this.str = a;
+    }
+
+    public void Check(View view) {
+        //final String[] score2 = {null};//don't know if this is used
+        EditText feeling = view.findViewById(R.id.editText);
+        st = feeling.getText().toString();
+
+        System.out.println(st + "pedo");
+
+        setStr(st);
+        RetrieveGetSentiment RetrieveGetSentiment = new RetrieveGetSentiment(this);
+        RetrieveGetSentiment.execute(feeling.getText().toString());
+    }
+
+
+
+
+
+
+
 }

@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "189368039859",
+    "firebase_url": "https://tryagain-fac73.firebaseio.com",
+    "project_id": "tryagain-fac73",
+    "storage_bucket": "tryagain-fac73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:189368039859:android:5d543849520a1764",
+        "android_client_info": {
+          "package_name": "edu.qc.seclass.glm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9GcZrTh0sU5PEZN0Q8lm3SYnfmwd3sTw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "189368039859-f3k3roed7gab5d4q0qbt40b5ogevearg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

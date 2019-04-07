@@ -33,7 +33,6 @@
             android:layout_marginTop="15dp"
             android:layout_below="@+id/education_title_tv"
             android:background="@drawable/mood_disorders"
-            android:onClick="MoodDisorder"
             />
 
         <ImageButton
@@ -44,7 +43,7 @@
             android:layout_marginTop="15dp"
             android:layout_below="@+id/mood_disorder_btn"
             android:background="@drawable/anxiety_disorders"
-            android:onClick="Anxiety"
+
             />
 
         <ImageButton
@@ -55,7 +54,7 @@
             android:layout_marginTop="15dp"
             android:layout_below="@+id/anxiety_btn"
             android:background="@drawable/autism_disorders"
-            android:onClick="Autism"
+
             />
 
     </RelativeLayout>

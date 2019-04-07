@@ -1,6 +1,5 @@
 package edu.qc.seclass.glm;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,10 +8,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 public class EducationFragment extends Fragment{
+    public EducationFragment() {
+    }
     /**
      * Every time we create a new instance of this class we are calling
      * the onCreateView method
@@ -27,54 +27,40 @@ public class EducationFragment extends Fragment{
      * @return
      */
 
-    Context context;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //Pass your layout xml to the inflater and assign it to rootView.
-        View rootView = inflater.inflate(R.layout.fragment_education, container, false);
-        context = rootView.getContext(); // Assign your rootView to context
-
-        ImageButton moodDisorderBtn = rootView.findViewById(R.id.mood_disorder_btn);
-        public void Mood(View view){
-            Intent i = new Intent(this, MainActivity9.class);
-            startActivity(i);
-        }
-
-        Button **yourButton** = (Button) rootView.findViewById(R.id.**your_button_id**);
-            **yourButton**.setOnClickListener(new View.OnClickListener() {
+        View view = inflater.inflate(R.layout.fragment_education, container, false);
+        ImageButton moodDisorderBtn = view.findViewById(R.id.mood_disorder_btn);
+        moodDisorderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Pass the context and the Activity class you need to open from the Fragment Class, to the Intent
-                Intent intent = new Intent(context, **YourActivityClass**.class);
-                startActivity(intent);
+                Intent i = new Intent(getActivity(), MoodActivity.class);
+                startActivity(i);
             }
         });
-        return rootView;
+
+        ImageButton anxietyBtn = view.findViewById(R.id.anxiety_btn);
+        anxietyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent n = new Intent(getActivity(), AnxietyActivity.class);
+                startActivity(n);
+            }
+        });
+
+        ImageButton autismBtn = view.findViewById(R.id.autism_btn);
+        autismBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent m = new Intent(getActivity(), AutismActivity.class);
+                startActivity(m);
+            }
+        });
+        return view;
     }
 }
 
 
 
-
-        /*
-        //Pass your layout xml to the inflater and assign it to rootView.
-        View rootView = inflater.inflate(R.layout.fragment_education,container,false);
-        context = rootView.getContext(); // Assign your rootView to context
-        return rootView;
-    }
-
-    public void MoodDisorder(View view) {
-        Intent n = new Intent(context, MoodActivity.class);
-        startActivity(n);
-    }
-    public void Anxiety(View view){
-        Intent n = new Intent(context, AnxietyActivity.class);
-        startActivity(n);
-    }
-    public void Autism(View view){
-        Intent m = new Intent(context, AutismActivity.class);
-        startActivity(m);
-    }
-}*/
